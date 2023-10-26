@@ -67,30 +67,35 @@
 
                             <form method="post" action="">
                             <p>Por favor ingresa con tu cuenta.</p>
+                            
+                            <div class="row">
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="nombre">Nombre completo: </label>
+                                    <input type="text" class="form-control" name="nombre" id="nombre" required>
 
-                            <div class="form-outline mb-4">
-                              <label class="form-label" for="email">Correo: </label>
-                              <input type="email" class="form-control" name="email" id="email" placeholder="example@gmail.com" required>
-                             
+                                  </div>
+                                 <div class="form-outline mb-4">
+                                    <label class="form-label" for="email">Correo: </label>
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="example@gmail.com" required>
+
+                                  </div>
+
+                                <div class="form-outline mb-4">
+                                    <label class="form-label" for="password">Contraseña: </label>
+                                    <input type="password" id="password" name="password" class="form-control" required/>
+
+                                </div>
+
+                                <div class="mb-3 row mt-3">
+                                    <div class="offset-sm-2 col-sm-8">
+                                        <button type="submit" class="btn btn-primary gradient-custom-2 ">Registrarse</button>
+                                        <a href="/labEncuesta/" class="btn btn-outline-danger"> Regresar</a>
+                                    </div>
+                                </div>
+                                
                             </div>
 
-                            <div class="form-outline mb-4">
-                                <label class="form-label" for="password">Contraseña: </label>
-                                <input type="password" id="password" name="password" class="form-control" required/>
-                             
-                            </div>
-
-                            <div class="text-center d-grid gap-2 col-6 mx-auto pt-1 mb-5 pb-1">
-                              <button class="btn btn-primary gradient-custom-2 mb-3" type="submit">
-                                  Login
-                              </button>
-               
-                            </div>
-
-                            <div class="d-flex align-items-center justify-content-center pb-4">
-                              <p class="mb-0 me-2">No tienes una cuenta?</p>
-                              <a href="register.jsp" class="btn btn-outline-danger"> Registrarse</a>
-                            </div>
+                           
 
                           </form>
 
