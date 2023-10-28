@@ -75,8 +75,8 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String email = request.getParameter("email");
-        String password = hashContrasena(request.getParameter("password"));
+            String email = request.getParameter("email");
+            String password = hashContrasena(request.getParameter("password"));
         try {
             //Validar lo que el action sea login
              if(request.getParameter("action").equals("login")){
