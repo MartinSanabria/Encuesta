@@ -10,66 +10,100 @@ package modelo;
  * @author X1
  */
 public class Usuario {
-     private int ID;
-    private String nombre;
-    private String correoElectronico;
-    private String contraseña;
-    private int rol;
+   private int user_id;
+   private String nombre; 
+   private String email;
+   private String password;
+   private int rol;
 
     public Usuario() {
     }
 
-    public Usuario(String nombre, String correoElectronico, String contraseña, int rol) {
+    public Usuario(String nombre, String email, String password, int rol) {
         this.nombre = nombre;
-        this.correoElectronico = correoElectronico;
-        this.contraseña = contraseña;
+        this.email = email;
+        this.password = password;
         this.rol = rol;
     }
 
-    public Usuario(int ID, String nombre, String correoElectronico, String contraseña, int rol) {
+    public Usuario(int user_id, String nombre, String email, String password, int rol) {
+        this.user_id = user_id;
         this.nombre = nombre;
-        this.correoElectronico = correoElectronico;
-        this.contraseña = contraseña;
+        this.email = email;
+        this.password = password;
         this.rol = rol;
     }
 
-    public int getID() {
-        return ID;
+    /**
+     * @return the user_id
+     */
+    public int getUser_id() {
+        return user_id;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    /**
+     * @param user_id the user_id to set
+     */
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
+    /**
+     * @return the nombre
+     */
     public String getNombre() {
         return nombre;
     }
 
+    /**
+     * @param nombre the nombre to set
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    public String getCorreoElectronico() {
-        return correoElectronico;
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
     }
 
-    public void setCorreoElectronico(String correoElectronico) {
-        this.correoElectronico = correoElectronico;
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getContraseña() {
-        return contraseña;
+    /**
+     * @return the password
+     */
+    public String getPassword() {
+        return password;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    /**
+     * @param password the password to set
+     */
+    public void setPassword(String password) {
+        this.password = password;
     }
 
+    /**
+     * @return the rol
+     */
     public int getRol() {
         return rol;
     }
 
+    /**
+     * @param rol the rol to set
+     */
     public void setRol(int rol) {
         this.rol = rol;
     }
+   
+   
+   
 }

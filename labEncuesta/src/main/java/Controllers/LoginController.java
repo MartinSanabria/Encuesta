@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import modelo.Usuario;
+import modeloDAO.usuarioDAO;
 
 /**
  *
@@ -75,60 +77,96 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            String email = request.getParameter("email");
-            String password = hashContrasena(request.getParameter("password"));
         try {
             //Validar lo que el action sea login
              if(request.getParameter("action").equals("login")){
                  
-                 //validar lo que es el usuario Empleado
-                if(1 > 0){
-                    if (1 > 0) {
-                    // El usuario se encontró en la tabla de usuarios
-                        HttpSession session = request.getSession(true);
-                        session.setAttribute("usuario", "");
-                    String successMessage = "Inicio de sesion satisfactorio.";
-
-                    request.setAttribute("successMessage", successMessage);
-                    RequestDispatcher dispatcher = request.getRequestDispatcher("homeAdmin.jsp");
-                    dispatcher.forward(request, response);
-                    } 
-                }
-                //Validar lo que es el usuario Cliente
-                // Si el usuario no se encontró en la tabla de usuarios, intenta buscarlo en la tabla de clientes
-                    
-                    if(1 > 0){
-                        if (1 > 0) {
+                    usuarioDAO adminDao = new usuarioDAO(); 
+                    String passwHash = this.hashContrasena(request.getParameter("password"));
+                    Usuario user = adminDao.ConsultaUsuario(request.getParameter("email"), passwHash,0);
+                if(user.getEmail() != null && user.getPassword() != null){
+                   if (user.getEmail().equals(request.getParameter("email")) && user.getPassword().equals(passwHash)) {
                         // El usuario se encontró en la tabla de clientes
                         HttpSession session = request.getSession(true);
-                        session.setAttribute("cliente", "");
-                        String successMessage = "Inicio de sesion satisfactorio.";
-
+                        session.setAttribute("admin", user);
+                        String successMessage = "Inicio de sesión satisfactorio.";
                         request.setAttribute("successMessage", successMessage);
-                        RequestDispatcher dispatcher = request.getRequestDispatcher("/Cliente/clientView.jsp");
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin/index.jsp");
                         dispatcher.forward(request, response);
+
+                    } 
+                }
+
+                    usuarioDAO userDao = new usuarioDAO(); 
+                    String passwordHash = this.hashContrasena(request.getParameter("password"));
+                    Usuario cliente = userDao.ConsultaUsuario(request.getParameter("email"), passwordHash,1);
+                    
+                    if(cliente.getEmail()!= null && cliente.getPassword()!= null){
+                        if (cliente.getEmail().equals(request.getParameter("email")) && cliente.getPassword().equals(passwordHash)) {
+                        // El usuario se encontró en la tabla de clientes
+                        HttpSession session = request.getSession(true);
+                        session.setAttribute("cliente", cliente);
+                        String successMessage = "Inicio de sesión satisfactorio.";
+                        request.setAttribute("successMessage", successMessage);
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("/Cliente/index.jsp");
+                        dispatcher.forward(request, response);
+
                     } else {
                         String errorMessage = "Credenciales incorrectas.";
 
                         request.setAttribute("errorMessage", errorMessage);
-                        RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
                         dispatcher.forward(request, response);
                         }
                     } else { 
                         String errorMessage = "Credenciales incorrectas.";
 
                         request.setAttribute("errorMessage", errorMessage);
-                        RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
                         dispatcher.forward(request, response);
                     }
                     
                 
-            }
+            } else if(request.getParameter("action").equals("create")){
+                
+                 usuarioDAO client=new usuarioDAO();
+                 
+                 Usuario userFound = client.buscarPorCorreo(request.getParameter("email"));
+                 
+                 if( userFound != null) {
+                     if(userFound.getEmail()!= null){ 
+                          if(userFound.getEmail().equals(request.getParameter("email"))){
+                            String errorMessage = "El correo ya se encuentra registrado.";
+                            request.setAttribute("errorMessage", errorMessage);
+                            RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+                            dispatcher.forward(request, response);
+                         }
+                     }
+                     else { 
+                         String passwordHash = this.hashContrasena(request.getParameter("password"));
+                         Usuario user = new Usuario(request.getParameter("nombre"),request.getParameter("email"),passwordHash,1);
+                         client.agregar(user);
+                         
+                         
+                        String successMessage = "Se registro satisfactoriamente";
+                        request.setAttribute("successMessage", successMessage);
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+                        dispatcher.forward(request, response);
+                     }
+                 }
+                 
+                 
+                 
+                 
+            } 
              
              
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
+       
+       
         
        
     }

@@ -65,7 +65,7 @@
                             <h4 class="mt-1 mb-5 pb-1">Bienvenido</h4>
                           </div>
 
-                            <form method="post" action="">
+                            <form method="post" action="/labEncuesta/LoginController?action=login">
                             <p>Por favor ingresa con tu cuenta.</p>
 
                             <div class="form-outline mb-4">

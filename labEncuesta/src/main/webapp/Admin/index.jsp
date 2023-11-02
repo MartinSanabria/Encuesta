@@ -2,15 +2,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<jsp:include page="../publicLayouts/header.jsp"/>
+<jsp:include page="../AdminLayouts/header.jsp"/>
 
-
+<c:if test="${empty admin}">
+    <%-- La sesión no está activa, redirige al inicio de sesión --%>
+    <jsp:forward page="index.jsp" />
+</c:if>
 <div class="container mt-3">
-    Bienvenido a la pagina del usuario
+    Bienvenido a la pagina del administrador
 </div>
 
+
+
 <c:if test="${not empty successMessage}">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
             const Toast = Swal.mixin({
               toast: true,
@@ -51,7 +56,5 @@
             })
     </script>
 </c:if>
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-<jsp:include page="../publicLayouts/footer.jsp"/>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<jsp:include page="../AdminLayouts/footer.jsp"/>

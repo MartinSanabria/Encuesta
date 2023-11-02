@@ -22,67 +22,92 @@ public class usuarioDAO {
         conexion = conexionManager.getConection();
     }
 
-    public void guardarUsuario(Usuario usuario) {
+     public boolean agregar(Usuario usuario){
+        String sql="insert into usuarios (nombre, email, password, rol) values(?,?,?,?)";
         try {
-            String sql = "INSERT INTO Usuarios (Nombre, CorreoElectronico, Contraseña, Rol) VALUES (?, ?, ?, ?)";
             PreparedStatement statement = conexion.prepareStatement(sql);
-            statement.setString(1, usuario.getNombre());
-            statement.setString(2, usuario.getCorreoElectronico());
-            statement.setString(3, usuario.getContraseña());
-            statement.setInt(4, usuario.getRol());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Manejo de excepciones
-        }
-    }
+            statement.setString(1,usuario.getNombre());
+            statement.setString(2,usuario.getEmail());
+            statement.setString(3,usuario.getPassword());
+            statement.setInt(4,usuario.getRol());
+            int filasAfectadas=statement.executeUpdate();
+            if(filasAfectadas>0){
+                return true;
+            }
+        }catch (Exception e){
 
-    public Usuario obtenerUsuarioPorID(int id) {
+        }
+        return false;
+    }
+    
+     
+     public Usuario buscarPorID(int id){
+        String sql="select * from proveedores where idproveedor=?";
+        Usuario usuario=new Usuario();
         try {
-            String sql = "SELECT * FROM Usuarios WHERE ID = ?";
             PreparedStatement statement = conexion.prepareStatement(sql);
             statement.setInt(1, id);
             ResultSet result = statement.executeQuery();
-
-            if (result.next()) {
-                int ID = result.getInt("ID");
-                String nombre = result.getString("Nombre");
-                String correoElectronico = result.getString("CorreoElectronico");
-                String contraseña = result.getString("Contraseña");
-                int rol = result.getInt("Rol");
-                return new Usuario(ID, nombre, correoElectronico, contraseña, rol);
+            while (result.next()){
+                usuario.setUser_id(result.getInt("user_id"));
+                usuario.setNombre(result.getString("nombre"));
+                usuario.setEmail(result.getString("email"));
+                usuario.setRol(result.getInt("rol"));
+            
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Manejo de excepciones
+
+        }catch (Exception e){
+
         }
-        return null;
+        return usuario;
     }
-    public Usuario iniciarSesion(String correo, String contrasena) {
-        String sql = "SELECT * FROM Usuarios WHERE CorreoElectronico = ? AND Contraseña = ?";
+
     
+    public Usuario ConsultaUsuario(String email, String password, int user_rol){
+
+        Usuario user=new Usuario();
+        String sql="select * from usuarios where email = ?  and password = ? and rol = ?";
+        try {
+            PreparedStatement ps = conexion.prepareStatement(sql);
+            ps.setString(1, email); // Establece el valor para el primer ? como correo
+            ps.setString(2, password);
+            ps.setInt(3, user_rol);// Establece el valor para el segundo ? como contrasena
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                user.setUser_id(rs.getInt("user_id"));
+                user.setNombre(rs.getString("nombre"));
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("password"));
+                user.setRol(rs.getInt("rol"));
+                
+            }
+        }catch (Exception e){
+
+        }
+        return user;
+    }
+    
+    
+     public Usuario buscarPorCorreo(String correo){
+        String sql="select * from usuarios where email=?";
+        Usuario usuario=new Usuario();
         try {
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setString(1, correo); // Establece el valor para el primer ? como correo
-            ps.setString(2, contrasena); // Establece el valor para el segundo ? como contrasena
             ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                int ID = rs.getInt("ID");
-                String nombre = rs.getString("Nombre");
-                String correoElectronico = rs.getString("CorreoElectronico");
-                int rol = rs.getInt("Rol"); // Supongamos que el rol es un entero
-
-                // Crea un objeto Usuario con los datos obtenidos
-                Usuario usuario = new Usuario(ID, nombre, correoElectronico, contrasena, rol);
-
-                return usuario;
+            while (rs.next()){
+                usuario.setUser_id(rs.getInt("user_id"));
+                usuario.setNombre(rs.getString("nombre"));
+                usuario.setEmail(rs.getString("email"));
+                usuario.setPassword(rs.getString("password"));
+                usuario.setRol(rs.getInt("rol"));
+            
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Maneja las excepciones aquí.
+
+        }catch (Exception e){
+
         }
-        return null; // Retornar null si la autenticación falla.
+        return usuario;
     }
 
 }

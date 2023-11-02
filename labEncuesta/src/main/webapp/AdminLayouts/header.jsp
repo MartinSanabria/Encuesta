@@ -22,7 +22,6 @@
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="">Encuestas</a>
               </li>
-            </ul>
           </div>
           
          <a href="/labEncuesta/LogoutController" class="btn btn-secondary">Cerrar Sesion</a>

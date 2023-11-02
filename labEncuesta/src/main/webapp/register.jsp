@@ -65,12 +65,12 @@
                             <h4 class="mt-1 mb-5 pb-1">Bienvenido</h4>
                           </div>
 
-                            <form method="post" action="">
+                            <form method="post" action="/labEncuesta/LoginController?action=create">
                             <p>Por favor ingresa con tu cuenta.</p>
                             
                             <div class="row">
                                 <div class="form-outline mb-4">
-                                    <label class="form-label" for="nombre">Nombre completo: </label>
+                                    <label class="form-label" for="nombre">Nombre: </label>
                                     <input type="text" class="form-control" name="nombre" id="nombre" required>
 
                                   </div>
