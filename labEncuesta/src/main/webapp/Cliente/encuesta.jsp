@@ -8,31 +8,38 @@
         <c:when test="${not empty encuesta}">
             <h1>Encuesta del usuario</h1>
             <table class="table">
-                <tr>
-                    <th>Nombre de usuario</th>
-                    <th>Sexo</th>
-                    <th>Deporte favorito</th>
-                    <th>Nivel de estudio</th>
-                    <th>Temas favoritos</th>
-                    <th>Fecha</th>
-                    <th>Hora</th>
-                </tr>
-                <tr>
-                    <td>${encuesta.nombre}</td>
-                    <td>${encuesta.sexo}</td>
-                    <td>${encuesta.deporte_favorito}</td>
-                    <td>${encuesta.nivel_estudio}</td>
-                    <td>${encuesta.temas_favoritos}</td>
-                    <td>${encuesta.fecha}</td>
-                    <td>${encuesta.hora}</td>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Nombre de usuario</th>
+                        <th>Sexo</th>
+                        <th>Deporte favorito</th>
+                        <th>Nivel de estudio</th>
+                        <th>Temas favoritos</th>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>${encuesta.nombre}</td>
+                        <td>${encuesta.sexo}</td>
+                        <td>${encuesta.deporte_favorito}</td>
+                        <td>${encuesta.nivel_estudio}</td>
+                        <td>${encuesta.temas_favoritos}</td>
+                        <td>${encuesta.fecha}</td>
+                        <td>${encuesta.hora}</td>
+                    </tr>
+                </tbody>
             </table>
+                                <button id="printButton" class="btn btn-primary">Imprimir</button>
+
         </c:when>
         <c:otherwise>
             <p>No se encontró una encuesta para este usuario.</p>
         </c:otherwise>
     </c:choose>
 </div>
+
 
 
 
@@ -81,5 +88,10 @@
 </c:if>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.getElementById("printButton").addEventListener("click", function() {
+        window.print();
+    });
+</script>
 
 <jsp:include page="../publicLayouts/footer.jsp"/>
