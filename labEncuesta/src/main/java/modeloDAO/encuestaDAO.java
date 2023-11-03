@@ -72,5 +72,21 @@ public class encuestaDAO {
         }
         return encuesta;
     }
+    public boolean usuarioRealizoEncuesta(int userId) {
+        String sql = "SELECT COUNT(*) AS count FROM encuesta WHERE user_id = ?";
+        try {
+            PreparedStatement statement = conexion.prepareStatement(sql);
+            statement.setInt(1, userId);
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                int count = result.getInt("count");
+                return count > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
 
 }

@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import modelo.Usuario;
+import modeloDAO.encuestaDAO;
 import modeloDAO.usuarioDAO;
 
 /**
@@ -89,6 +90,10 @@ public class LoginController extends HttpServlet {
                         // El usuario se encontró en la tabla de clientes
                         HttpSession session = request.getSession(true);
                         session.setAttribute("admin", user);
+                         // Aquí guardamos el ID y el nombre del usuario en la sesión
+                        session.setAttribute("userId", user.getUser_id());
+                        session.setAttribute("userName", user.getNombre());
+                        
                         String successMessage = "Inicio de sesión satisfactorio.";
                         request.setAttribute("successMessage", successMessage);
                         RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin/index.jsp");
@@ -106,6 +111,19 @@ public class LoginController extends HttpServlet {
                         // El usuario se encontró en la tabla de clientes
                         HttpSession session = request.getSession(true);
                         session.setAttribute("cliente", cliente);
+                        session.setAttribute("userId", cliente.getUser_id());
+                        session.setAttribute("userName", cliente.getNombre());
+                         // Verificar si el usuario ya realizó una encuesta
+                        encuestaDAO encuestaDao = new encuestaDAO();
+                        boolean usuarioRealizoEncuesta = encuestaDao.usuarioRealizoEncuesta(cliente.getUser_id());
+
+                        if (usuarioRealizoEncuesta) {
+                            // El usuario ya realizó una encuesta, toma las acciones necesarias
+                            session.setAttribute("encuestaRealizada", "1");
+                        } else {
+                            // El usuario aún no ha realizado una encuesta, toma las acciones necesarias
+                                session.setAttribute("encuestaRealizada", "0");
+                        }
                         String successMessage = "Inicio de sesión satisfactorio.";
                         request.setAttribute("successMessage", successMessage);
                         RequestDispatcher dispatcher = request.getRequestDispatcher("/Cliente/index.jsp");

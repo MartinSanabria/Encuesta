@@ -15,17 +15,39 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="">Encuestas</a>
-              </li>
-            </ul>
-          </div>
-          
-         <a href="/labEncuesta/LogoutController" class="btn btn-secondary">Cerrar Sesion</a>
+<!-- Agrega la librería Font Awesome para los íconos -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
 
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="">Encuestas</a>
+                </li>
+                <li>
+                    <a class="nav-link active" aria-current="page" href="">Ver mi perfil</a>
+                </li>
+                <li>
+                    <a class="nav-link active" aria-current="page" href="">Ver mi encuesta</a>
+                </li>
+            </ul>
+            <div class="d-flex">
+                <c:if test="${not empty sessionScope.userName}">
+                    <!-- Botón Dropdown para el perfil del usuario -->
+                    <div class="dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle"></i> ${sessionScope.userName}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="profileDropdown">
+                            <li><a class="dropdown-item" href="#">Mi perfil</a></li>
+                            <li><a class="dropdown-item" href="#">Configuración</a></li>
+                            <li class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/labEncuesta/LogoutController">Cerrar Sesión</a></li>
+                        </ul>
+                    </div>
+                </c:if>
+            </div>
         </div>
-      </nav>
+    </div>
+</nav>
