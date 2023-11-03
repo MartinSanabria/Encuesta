@@ -130,7 +130,7 @@ public class UsuarioController extends HttpServlet {
                 // Manejar la acción "verform" aquí
                 int userId = Integer.parseInt(request.getParameter("userId"));
                 encuestaDAO encuestaDao = new encuestaDAO();
-                Encuesta encuesta = encuestaDao.buscarPorID(userId);
+                Encuesta encuesta = encuestaDao.buscarEncuestaPorUsuario(userId);
 
                 // Envía los datos de la encuesta a la vista "encuesta.jsp"
                 request.setAttribute("encuesta", encuesta);

@@ -46,32 +46,34 @@ public class encuestaDAO {
         }
         return false;
     }
-    
-    
-    public Encuesta buscarPorID(int id){
-        String sql="select * from encuesta where encuesta_id=?";
-        Encuesta encuesta=new Encuesta();
-        try {
-            PreparedStatement statement = conexion.prepareStatement(sql);
-            statement.setInt(1, id);
-            ResultSet result = statement.executeQuery();
-            while (result.next()){
-                encuesta.setUser_id(result.getInt("user_id"));
-                encuesta.setNombre(result.getString("nombre"));
-                encuesta.setSexo(result.getString("sexo"));
-                encuesta.setDeporte_favorito(result.getString("deporte_favorito"));
-                encuesta.setNivel_estudio(result.getString("nivel_estudio"));
-                encuesta.setTemas_favoritos(result.getString("temas_favoritos"));
-                encuesta.setFecha(result.getString("fecha"));
-                encuesta.setHora(result.getString("hora"));
-            
-            }
-
-        }catch (Exception e){
-
+    public Encuesta buscarEncuestaPorUsuario(int userId) {
+    Encuesta encuesta = null;
+    String sql = "SELECT * FROM encuesta WHERE user_id = ?";
+    try {
+        PreparedStatement statement = conexion.prepareStatement(sql);
+        statement.setInt(1, userId);
+        ResultSet rs = statement.executeQuery();
+        if (rs.next()) {
+            encuesta = new Encuesta();
+            // Obtén los valores de la encuesta desde el ResultSet y configura el objeto encuesta
+            encuesta.setUser_id(rs.getInt("user_id"));
+            encuesta.setNombre(rs.getString("nombre"));
+            encuesta.setSexo(rs.getString("sexo"));
+              encuesta.setDeporte_favorito(rs.getString("deporte_favorito"));
+                encuesta.setNivel_estudio(rs.getString("nivel_estudio"));
+                encuesta.setTemas_favoritos(rs.getString("temas_favoritos"));
+                encuesta.setFecha(rs.getString("fecha"));
+                encuesta.setHora(rs.getString("hora"));
+            // Configura otros atributos de la encuesta
         }
-        return encuesta;
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+    return encuesta;
+}
+
+    
+    
     public boolean usuarioRealizoEncuesta(int userId) {
         String sql = "SELECT COUNT(*) AS count FROM encuesta WHERE user_id = ?";
         try {
