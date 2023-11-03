@@ -19,7 +19,8 @@
 
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </head>
 
@@ -50,6 +51,9 @@
         }
     </style>
     <div class="container">
+       <c:choose>
+        <c:when test="${empty cliente && empty admin}">
+
         <section class="h-100 gradient-form">
             <div class="container py-5 h-100">
               <div class="row d-flex justify-content-center align-items-center h-100">
@@ -112,6 +116,22 @@
               </div>
             </div>
           </section>
+          </c:when>
+            <c:when test="${not empty cliente}">
+                <h4 class="mb-4">Bienvenido Cliente</h4>
+                <p class="small mb-0">Contenido específico para clientes.</p>
+            </c:when>
+            <c:when test="${not empty admin}">
+                <h4 class="mb-4">Bienvenido Administrador</h4>
+                <p class="small mb-0">Contenido específico para administradores.</p>
+            </c:when>
+            <c:otherwise>
+                <h4 class="mb-4">Disfruta tu estancia.</h4>
+                <p class="small mb-0">Contenido general para usuarios no autenticados.</p>
+            </c:otherwise>
+
+        </c:choose>
+
     </div>
 <c:if test="${not empty successMessage}">
     <script>
@@ -162,6 +182,15 @@
   </script>
   
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+ 
+
+        // Función para recargar la página cuando se utiliza el botón "Atrás" del navegador
+        window.onbeforeunload = function() {
+          window.location.reload();
+        };
+  </script>
+
 </body>
 
 </html>

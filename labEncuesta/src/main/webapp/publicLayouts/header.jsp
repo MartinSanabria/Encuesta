@@ -33,12 +33,7 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="">Encuestas</a>
                 </li>
-                <li>
-                    <a class="nav-link active" aria-current="page" href="">Ver mi perfil</a>
-                </li>
-                <li>
-                    <a class="nav-link active" aria-current="page" href="">Ver mi encuesta</a>
-                </li>
+             
             </ul>
             <div class="d-flex">
                 <c:if test="${not empty sessionScope.userName}">

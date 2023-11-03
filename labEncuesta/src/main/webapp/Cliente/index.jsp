@@ -9,7 +9,7 @@
             <!-- Mostrar el botón para ver la encuesta -->
             <h1>Encuesta realizada</h1>
             <form  action="/labEncuesta/UsuarioController?action=verform" method="post">
-                <input type="text" id="userId" name="userId" class="form-control" required value="${sessionScope.userId}">
+                <input type="hidden" id="userId" name="userId" class="form-control" required value="${sessionScope.userId}">
                 <button type="submit" class="btn btn-primary mt-5">Ver encuesta</button>
 
             </form>
