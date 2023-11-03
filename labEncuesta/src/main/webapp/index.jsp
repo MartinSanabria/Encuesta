@@ -10,6 +10,17 @@
 
 <!doctype html>
 <html lang="en">
+    
+<c:choose>
+    <c:when test="${not empty cliente}">
+        <%-- Redirige al cliente a su página correspondiente si ya ha iniciado sesión --%>
+        <c:redirect url="/Cliente/index.jsp" />
+    </c:when>
+    <c:when test="${not empty admin}">
+        <%-- Redirige al administrador a su página correspondiente si ya ha iniciado sesión --%>
+        <c:redirect url="/Admin/index.jsp" />
+    </c:when>
+</c:choose>
 
 <head>
   <title>Centro de encuestas</title>

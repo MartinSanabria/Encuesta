@@ -6,7 +6,7 @@
 
 <c:if test="${empty admin}">
     <%-- La sesión no está activa, redirige al inicio de sesión --%>
-    <jsp:forward page="index.jsp" />
+     <c:redirect url="index.jsp" />
 </c:if>
 <div class="container mt-3">
     Bienvenido a la pagina del administrador

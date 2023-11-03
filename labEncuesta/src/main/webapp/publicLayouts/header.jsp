@@ -35,7 +35,7 @@
                 </li>
              
             </ul>
-            <div class="d-flex">
+            <div class="d-flex me-5 pe-4">
                 <c:if test="${not empty sessionScope.userName}">
                     <!-- Botón Dropdown para el perfil del usuario -->
                     <div class="dropdown">

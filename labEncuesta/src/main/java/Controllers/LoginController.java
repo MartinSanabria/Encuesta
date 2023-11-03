@@ -80,40 +80,41 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         try {
             //Validar lo que el action sea login
-             if(request.getParameter("action").equals("login")){
-                 
-                    usuarioDAO adminDao = new usuarioDAO(); 
-                    String passwHash = this.hashContrasena(request.getParameter("password"));
-                    Usuario user = adminDao.ConsultaUsuario(request.getParameter("email"), passwHash,0);
-                if(user.getEmail() != null && user.getPassword() != null){
-                   if (user.getEmail().equals(request.getParameter("email")) && user.getPassword().equals(passwHash)) {
+             if (request.getParameter("action").equals("login")) {
+                usuarioDAO adminDao = new usuarioDAO();
+                String passwHash = this.hashContrasena(request.getParameter("password"));
+                Usuario user = adminDao.ConsultaUsuario(request.getParameter("email"), passwHash, 0);
+
+                if (user.getEmail() != null && user.getPassword() != null) {
+                    if (user.getEmail().equals(request.getParameter("email")) && user.getPassword().equals(passwHash)) {
                         // El usuario se encontró en la tabla de clientes
                         HttpSession session = request.getSession(true);
                         session.setAttribute("admin", user);
-                         // Aquí guardamos el ID y el nombre del usuario en la sesión
+                        // Aquí guardamos el ID y el nombre del usuario en la sesión
                         session.setAttribute("userId", user.getUser_id());
                         session.setAttribute("userName", user.getNombre());
-                        
+
                         String successMessage = "Inicio de sesión satisfactorio.";
                         request.setAttribute("successMessage", successMessage);
+                        // Utilizamos RequestDispatcher para redirigir al administrador
                         RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin/index.jsp");
                         dispatcher.forward(request, response);
-
-                    } 
+                        return; // Importante: detener la ejecución del código después de la redirección
+                    }
                 }
 
-                    usuarioDAO userDao = new usuarioDAO(); 
-                    String passwordHash = this.hashContrasena(request.getParameter("password"));
-                    Usuario cliente = userDao.ConsultaUsuario(request.getParameter("email"), passwordHash,1);
-                    
-                    if(cliente.getEmail()!= null && cliente.getPassword()!= null){
-                        if (cliente.getEmail().equals(request.getParameter("email")) && cliente.getPassword().equals(passwordHash)) {
+                usuarioDAO userDao = new usuarioDAO();
+                String passwordHash = this.hashContrasena(request.getParameter("password"));
+                Usuario cliente = userDao.ConsultaUsuario(request.getParameter("email"), passwordHash, 1);
+
+                if (cliente.getEmail() != null && cliente.getPassword() != null) {
+                    if (cliente.getEmail().equals(request.getParameter("email")) && cliente.getPassword().equals(passwordHash)) {
                         // El usuario se encontró en la tabla de clientes
                         HttpSession session = request.getSession(true);
                         session.setAttribute("cliente", cliente);
                         session.setAttribute("userId", cliente.getUser_id());
                         session.setAttribute("userName", cliente.getNombre());
-                         // Verificar si el usuario ya realizó una encuesta
+                        // Verificar si el usuario ya realizó una encuesta
                         encuestaDAO encuestaDao = new encuestaDAO();
                         boolean usuarioRealizoEncuesta = encuestaDao.usuarioRealizoEncuesta(cliente.getUser_id());
 
@@ -122,29 +123,22 @@ public class LoginController extends HttpServlet {
                             session.setAttribute("encuestaRealizada", "1");
                         } else {
                             // El usuario aún no ha realizado una encuesta, toma las acciones necesarias
-                                session.setAttribute("encuestaRealizada", "0");
+                            session.setAttribute("encuestaRealizada", "0");
                         }
                         String successMessage = "Inicio de sesión satisfactorio.";
                         request.setAttribute("successMessage", successMessage);
+                        // Utilizamos RequestDispatcher para redirigir al cliente
                         RequestDispatcher dispatcher = request.getRequestDispatcher("/Cliente/index.jsp");
                         dispatcher.forward(request, response);
-
+                        return; // Importante: detener la ejecución del código después de la redirección
                     } else {
                         String errorMessage = "Credenciales incorrectas.";
-
                         request.setAttribute("errorMessage", errorMessage);
-                        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-                        dispatcher.forward(request, response);
-                        }
-                    } else { 
-                        String errorMessage = "Credenciales incorrectas.";
-
-                        request.setAttribute("errorMessage", errorMessage);
-                        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-                        dispatcher.forward(request, response);
                     }
-                    
-                
+                } else {
+                    String errorMessage = "Credenciales incorrectas.";
+                    request.setAttribute("errorMessage", errorMessage);
+                }
             } else if(request.getParameter("action").equals("create")){
                 
                  usuarioDAO client=new usuarioDAO();
