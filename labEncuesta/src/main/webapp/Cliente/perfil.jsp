@@ -22,6 +22,14 @@
                 <label for="email">Email</label>
                 <input type="text" class="form-control" name="email" value="${perfil.email}">
             </div>
+            
+             <div class="form-group position-relative">
+                <label for="password" class="col-3 col-form-label">Contraseña</label>
+                <div class="col-12">
+                    <input type="password" class="form-control" name="password" id="password" value="${perfil.getPassword()}" required>
+                    <span class="fa fa-fw fa-eye field-icon toggle-password position-absolute" style="top: 75%; transform: translateY(-50%); right: 1rem;" toggle="#password"></span>
+                </div>
+            </div>
             <!-- Otros campos de entrada según sea necesario -->
 
             <button type="submit" class="btn btn-primary mt-3">Editar</button>
@@ -30,7 +38,20 @@
 </div>
 
 
+<script>
+// JavaScript para alternar la visibilidad de la contraseña
+document.querySelectorAll(".toggle-password").forEach(function (icon) {
+    icon.addEventListener("click", function () {
+        const passwordInput = document.querySelector(this.getAttribute("toggle"));
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+        } else {
+            passwordInput.type = "password";
+        }
+    });
+});
 
+</script>
 
 
 <c:if test="${not empty successMessage}">

@@ -8,6 +8,8 @@ package Controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.servlet.RequestDispatcher;
@@ -18,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import modelo.Encuesta;
+import modelo.PasswordDecryptor;
 import modelo.Usuario;
 import modeloDAO.encuestaDAO;
 import modeloDAO.usuarioDAO;
@@ -142,7 +145,12 @@ public class UsuarioController extends HttpServlet {
                int userId = Integer.parseInt(request.getParameter("userId"));
                 usuarioDAO userDao = new usuarioDAO();
                 Usuario perfil = userDao.buscarPorID(userId);
-                 request.setAttribute("perfil", perfil);
+                
+                PasswordDecryptor decryptor = new PasswordDecryptor();
+                String decryptedPassword = decryptor.decrypt(perfil.getPassword());
+                perfil.setPassword(decryptedPassword);
+                System.out.println("Contra: " + decryptedPassword);
+                request.setAttribute("perfil", perfil);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/Cliente/perfil.jsp");
                 dispatcher.forward(request, response);
             
@@ -150,15 +158,32 @@ public class UsuarioController extends HttpServlet {
                 int userId = Integer.parseInt(request.getParameter("userId"));
                 String nombre = request.getParameter("nombre");
                 String email = request.getParameter("email");
-
+                PasswordDecryptor decryptor = new PasswordDecryptor();
+                String decryptedPassword = decryptor.encrypt(request.getParameter("password"));
                 usuarioDAO userDao = new usuarioDAO();
-                Usuario perfil = userDao.actualizarUser(userId,email,nombre);
+                Usuario perfil = userDao.actualizarUser(userId,email,nombre,decryptedPassword);
                 request.setAttribute("perfil", perfil);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/Cliente/perfil.jsp");
                 dispatcher.forward(request, response);
 
             }else{
             }
+    }
+    
+    
+     private String hashContrasena(String contrasena) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] bytes = md.digest(contrasena.getBytes());
+
+            StringBuilder sb = new StringBuilder();
+            for (byte b : bytes) {
+                sb.append(String.format("%04x", b));
+            }
+            return sb.toString().substring(0, 20);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**

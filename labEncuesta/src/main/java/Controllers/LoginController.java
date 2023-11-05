@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import modelo.PasswordDecryptor;
 import modelo.Usuario;
 import modeloDAO.encuestaDAO;
 import modeloDAO.usuarioDAO;
@@ -82,11 +83,12 @@ public class LoginController extends HttpServlet {
             //Validar lo que el action sea login
              if (request.getParameter("action").equals("login")) {
                 usuarioDAO adminDao = new usuarioDAO();
-                String passwHash = this.hashContrasena(request.getParameter("password"));
-                Usuario user = adminDao.ConsultaUsuario(request.getParameter("email"), passwHash, 0);
+                PasswordDecryptor decryptor = new PasswordDecryptor();
+                String decryptedPassword = decryptor.encrypt(request.getParameter("password"));
+                Usuario user = adminDao.ConsultaUsuario(request.getParameter("email"), decryptedPassword, 0);
 
                 if (user.getEmail() != null && user.getPassword() != null) {
-                    if (user.getEmail().equals(request.getParameter("email")) && user.getPassword().equals(passwHash)) {
+                    if (user.getEmail().equals(request.getParameter("email")) && user.getPassword().equals(decryptedPassword)) {
                         // El usuario se encontró en la tabla de clientes
                         HttpSession session = request.getSession(true);
                         session.setAttribute("admin", user);
@@ -104,11 +106,11 @@ public class LoginController extends HttpServlet {
                 }
 
                 usuarioDAO userDao = new usuarioDAO();
-                String passwordHash = this.hashContrasena(request.getParameter("password"));
-                Usuario cliente = userDao.ConsultaUsuario(request.getParameter("email"), passwordHash, 1);
+                decryptedPassword = decryptor.encrypt(request.getParameter("password"));
+                Usuario cliente = userDao.ConsultaUsuario(request.getParameter("email"), decryptedPassword, 1);
 
                 if (cliente.getEmail() != null && cliente.getPassword() != null) {
-                    if (cliente.getEmail().equals(request.getParameter("email")) && cliente.getPassword().equals(passwordHash)) {
+                    if (cliente.getEmail().equals(request.getParameter("email")) && cliente.getPassword().equals(decryptedPassword)) {
                         // El usuario se encontró en la tabla de clientes
                         HttpSession session = request.getSession(true);
                         session.setAttribute("cliente", cliente);
@@ -155,8 +157,9 @@ public class LoginController extends HttpServlet {
                          }
                      }
                      else { 
-                         String passwordHash = this.hashContrasena(request.getParameter("password"));
-                         Usuario user = new Usuario(request.getParameter("nombre"),request.getParameter("email"),passwordHash,1);
+                        PasswordDecryptor decryptor = new PasswordDecryptor();
+                        String decryptedPassword = decryptor.encrypt(request.getParameter("password"));
+                         Usuario user = new Usuario(request.getParameter("nombre"),request.getParameter("email"),decryptedPassword,1);
                          client.agregar(user);
                          
                          
@@ -183,20 +186,7 @@ public class LoginController extends HttpServlet {
        
     }
     
-    private String hashContrasena(String contrasena) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] bytes = md.digest(contrasena.getBytes());
-
-            StringBuilder sb = new StringBuilder();
-            for (byte b : bytes) {
-                sb.append(String.format("%04x", b));
-            }
-            return sb.toString().substring(0, 20);
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
-    }
+   
     /**
      * Returns a short description of the servlet.
      *

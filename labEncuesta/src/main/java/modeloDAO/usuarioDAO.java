@@ -55,6 +55,7 @@ public class usuarioDAO {
                 usuario.setUser_id(result.getInt("user_id"));
                 usuario.setNombre(result.getString("nombre"));
                 usuario.setEmail(result.getString("email"));
+                usuario.setPassword(result.getString("password"));
                 usuario.setRol(result.getInt("rol"));
                 // Configura otros atributos del usuario según sea necesario
             }
@@ -65,15 +66,16 @@ public class usuarioDAO {
 
         return usuario;
     }
-    public Usuario actualizarUser(int userId, String email, String nombre) {
-    String sql = "UPDATE usuarios SET email = ?, nombre = ? WHERE user_id = ?";
+    public Usuario actualizarUser(int userId, String email, String nombre,String password) {
+    String sql = "UPDATE usuarios SET email = ?, nombre = ?, password = ? WHERE user_id = ?";
     Usuario usuario = null;
 
     try {
         PreparedStatement statement = conexion.prepareStatement(sql);
         statement.setString(1, email);
         statement.setString(2, nombre);
-        statement.setInt(3, userId);
+        statement.setString(3, password);
+        statement.setInt(4, userId);
 
         int rowsUpdated = statement.executeUpdate();
 
@@ -82,6 +84,7 @@ public class usuarioDAO {
             usuario.setUser_id(userId);
             usuario.setEmail(email);
             usuario.setNombre(nombre);
+            usuario.setPassword(password);
             // Configura otros atributos del perfil según sea necesario
         }
     } catch (SQLException e) {
