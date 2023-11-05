@@ -18,7 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import modelo.Encuesta;
+import modelo.Usuario;
 import modeloDAO.encuestaDAO;
+import modeloDAO.usuarioDAO;
 
 /**
  *
@@ -136,8 +138,26 @@ public class UsuarioController extends HttpServlet {
                 request.setAttribute("encuesta", encuesta);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/Cliente/encuesta.jsp");
                 dispatcher.forward(request, response);
-            }else{
+            }else if("verPerfil".equals(action)){
+               int userId = Integer.parseInt(request.getParameter("userId"));
+                usuarioDAO userDao = new usuarioDAO();
+                Usuario perfil = userDao.buscarPorID(userId);
+                 request.setAttribute("perfil", perfil);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/Cliente/perfil.jsp");
+                dispatcher.forward(request, response);
             
+            }else if("actualizarPerfil".equals(action)) {
+                int userId = Integer.parseInt(request.getParameter("userId"));
+                String nombre = request.getParameter("nombre");
+                String email = request.getParameter("email");
+
+                usuarioDAO userDao = new usuarioDAO();
+                Usuario perfil = userDao.actualizarUser(userId,email,nombre);
+                request.setAttribute("perfil", perfil);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/Cliente/perfil.jsp");
+                dispatcher.forward(request, response);
+
+            }else{
             }
     }
 

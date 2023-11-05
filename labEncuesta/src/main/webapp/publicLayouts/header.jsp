@@ -31,7 +31,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="">Encuestas</a>
+                    <a class="nav-link active" aria-current="page" href="/labEncuesta/index.jsp">Encuestas</a>
                 </li>
              
             </ul>
@@ -41,10 +41,19 @@
                     <div class="dropdown">
                         <a class="nav-link dropdown-toggle text-white" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-user-circle"></i> ${sessionScope.userName}
+
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="profileDropdown">
-                            <li><a class="dropdown-item" href="#">Mi perfil</a></li>
-                            <li><a class="dropdown-item" href="#">Configuración</a></li>
+                            <form action="/labEncuesta/UsuarioController?action=verPerfil" method="post">
+                                <!-- Campo oculto para enviar sessionScope.userId -->
+                                <input type="hidden" name="userId" value="${sessionScope.userId}">
+                                <button class="dropdown-item" type="submit">Perfil</button>
+                            </form>
+                                <form  action="/labEncuesta/UsuarioController?action=verform" method="post">
+                                    <input type="hidden" id="userId" name="userId" class="form-control" required value="${sessionScope.userId}">
+                                    <button type="submit" class="dropdown-item">Ver encuesta</button>
+
+                                </form>
                             <li class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="/labEncuesta/LogoutController">Cerrar Sesión</a></li>
                         </ul>

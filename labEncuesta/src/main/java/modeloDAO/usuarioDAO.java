@@ -41,26 +41,58 @@ public class usuarioDAO {
     }
     
      
-     public Usuario buscarPorID(int id){
-        String sql="select * from proveedores where idproveedor=?";
-        Usuario usuario=new Usuario();
+    public Usuario buscarPorID(int id) {
+        String sql = "SELECT * FROM usuarios WHERE user_id = ?";
+        Usuario usuario = null;
+
         try {
             PreparedStatement statement = conexion.prepareStatement(sql);
             statement.setInt(1, id);
             ResultSet result = statement.executeQuery();
-            while (result.next()){
+
+            if (result.next()) {
+                usuario = new Usuario();
                 usuario.setUser_id(result.getInt("user_id"));
                 usuario.setNombre(result.getString("nombre"));
                 usuario.setEmail(result.getString("email"));
                 usuario.setRol(result.getInt("rol"));
-            
+                // Configura otros atributos del usuario según sea necesario
             }
-
-        }catch (Exception e){
-
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Aquí puedes manejar la excepción de una manera más adecuada, como lanzar una excepción personalizada o retornar un valor especial
         }
+
         return usuario;
     }
+    public Usuario actualizarUser(int userId, String email, String nombre) {
+    String sql = "UPDATE usuarios SET email = ?, nombre = ? WHERE user_id = ?";
+    Usuario usuario = null;
+
+    try {
+        PreparedStatement statement = conexion.prepareStatement(sql);
+        statement.setString(1, email);
+        statement.setString(2, nombre);
+        statement.setInt(3, userId);
+
+        int rowsUpdated = statement.executeUpdate();
+
+        if (rowsUpdated > 0) {
+            usuario = new Usuario();
+            usuario.setUser_id(userId);
+            usuario.setEmail(email);
+            usuario.setNombre(nombre);
+            // Configura otros atributos del perfil según sea necesario
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        // Manejo de la excepción, como lanzar una excepción personalizada o registrar el error
+    }
+
+    return usuario;
+}
+
+
 
     
     public Usuario ConsultaUsuario(String email, String password, int user_rol){
