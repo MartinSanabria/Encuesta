@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import modelo.Encuesta;
 import modelo.Usuario;
 /**
@@ -89,6 +91,35 @@ public class encuestaDAO {
         }
         return false;
     }
+    public List<Encuesta> buscarTodasLasEncuestas() {
+    List<Encuesta> encuestas = new ArrayList<>();
+    String sql = "SELECT * FROM encuesta";
+    
+    try {
+        PreparedStatement statement = conexion.prepareStatement(sql);
+        ResultSet rs = statement.executeQuery();
+        
+        while (rs.next()) {
+            Encuesta encuesta = new Encuesta();
+            encuesta.setUser_id(rs.getInt("user_id"));
+            encuesta.setNombre(rs.getString("nombre"));
+            encuesta.setSexo(rs.getString("sexo"));
+            encuesta.setDeporte_favorito(rs.getString("deporte_favorito"));
+            encuesta.setNivel_estudio(rs.getString("nivel_estudio"));
+            encuesta.setTemas_favoritos(rs.getString("temas_favoritos"));
+            encuesta.setFecha(rs.getString("fecha"));
+            encuesta.setHora(rs.getString("hora"));
+            // Configura otros atributos de la encuesta si es necesario
+            encuestas.add(encuesta);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        // Manejo de la excepción, como lanzar una excepción personalizada o registrar el error
+    }
+    
+    return encuestas;
+}
+
 
 
 }

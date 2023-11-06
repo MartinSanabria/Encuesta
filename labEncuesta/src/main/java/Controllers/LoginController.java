@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import modelo.Encuesta;
 import modelo.PasswordDecryptor;
 import modelo.Usuario;
 import modeloDAO.encuestaDAO;
@@ -99,6 +101,12 @@ public class LoginController extends HttpServlet {
                         String successMessage = "Inicio de sesión satisfactorio.";
                         request.setAttribute("successMessage", successMessage);
                         // Utilizamos RequestDispatcher para redirigir al administrador
+                            Encuesta encuesta = new Encuesta();
+                            encuestaDAO encuestaDao = new encuestaDAO();
+                            List<Encuesta> encuestas = encuestaDao.buscarTodasLasEncuestas();
+
+                        request.setAttribute("encuestas", encuestas);
+
                         RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin/index.jsp");
                         dispatcher.forward(request, response);
                         return; // Importante: detener la ejecución del código después de la redirección

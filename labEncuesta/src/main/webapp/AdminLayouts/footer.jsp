@@ -7,6 +7,35 @@
   </script>
   
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+      
+      $(document).ready(function() {
+            $('#miTabla').DataTable({
+                "language": {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros por página",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    }
+                },
+                "lengthMenu": [5, 10, 25], // Mostrar opciones de 5, 10 y 25 registros por página
+                "pageLength": 5 // Establecer 5 como valor por defecto
+            });
+        });
+  </script>
 </body>
 
 </html>
