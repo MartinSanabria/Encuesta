@@ -30,11 +30,11 @@
                 <div class="form-group">
                     <label>Genero</label>
                     <div class="form-check">
-                        <input type="radio" id="male" name="gender" value="Male" class="form-check-input">
+                        <input type="radio" id="male" name="gender" value="Masculino" class="form-check-input">
                         <label for="male" class="form-check-label">Masculino</label>
                     </div>
                     <div class="form-check">
-                        <input type="radio" id="female" name="gender" value="Female" class="form-check-input">
+                        <input type="radio" id="female" name="gender" value="Femenino" class="form-check-input">
                         <label for="female" class="form-check-label">Femenino</label>
                     </div>
                 </div>
@@ -85,19 +85,19 @@
                         <label for="television" class="form-check-label">Televisión</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input type="radio" id="cooking" name="favoriteTopic" value="Cooking" class="form-check-input">
+                        <input type="radio" id="cooking" name="favoriteTopic" value="Cocina" class="form-check-input">
                         <label for="cooking" class="form-check-label">Cocina</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input type="radio" id="technology" name="favoriteTopic" value="Technology" class="form-check-input">
+                        <input type="radio" id="technology" name="favoriteTopic" value="Tecnología" class="form-check-input">
                         <label for="technology" class="form-check-label">Tecnología</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input type="radio" id="music" name="favoriteTopic" value="Music" class="form-check-input">
+                        <input type="radio" id="music" name="favoriteTopic" value="Musica" class="form-check-input">
                         <label for="music" class="form-check-label">Música</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input type="radio" id="sports" name="favoriteTopic" value="Sports" class="form-check-input">
+                        <input type="radio" id="sports" name="favoriteTopic" value="Deportes" class="form-check-input">
                         <label for="sports" class="form-check-label">Deportes</label>
                     </div>
                     <!-- Agrega más temas aquí -->

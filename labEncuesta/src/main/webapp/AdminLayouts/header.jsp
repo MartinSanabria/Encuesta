@@ -13,7 +13,8 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.3/datatables.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.3/datatables.min.js"></script>
- 
+     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     
 
     <style>
@@ -83,9 +84,12 @@
 
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="profileDropdown">
-                            <li><a class="dropdown-item" href="/labEncuesta/LoginController?action=login">Ver encuestas</a></li>
-                            <li><a class="dropdown-item" href="/labEncuesta/index.jsp">Graficos</a></li>
-
+                            <li><a class="dropdown-item" href="/labEncuesta/index.jsp">Ver encuestas</a></li>
+                            <form action="/labEncuesta/UsuarioController?action=verGrafico" method="post">
+                                <!-- Campo oculto para enviar sessionScope.userId -->
+                                <input type="hidden" name="userId" value="${sessionScope.userId}">
+                                <button class="dropdown-item" type="submit">Ver graficos</button>
+                            </form>
                             <li class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="/labEncuesta/LogoutController">Cerrar Sesión</a></li>
                         </ul>

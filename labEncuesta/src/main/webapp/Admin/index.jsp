@@ -4,7 +4,6 @@
  
 <!DOCTYPE html>
 <jsp:include page="../AdminLayouts/header.jsp"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.4/html2pdf.bundle.min.js"></script>
 
 <c:if test="${empty admin}">
     <%-- La sesión no está activa, redirige al inicio de sesión --%>
@@ -41,7 +40,6 @@
                             <td>${encuesta.temas_favoritos}</td>
                             <td>${encuesta.fecha}</td>
                             <td>${encuesta.hora}</td>
-                            <td class="indice-oculto">${status.index}</td> <!-- Aplica la clase CSS para ocultar la celda -->
 
                             
                             <!-- Agrega más columnas según los atributos de la encuesta -->
@@ -102,8 +100,7 @@
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
-
-
+ 
 
 
 <jsp:include page="../AdminLayouts/footer.jsp"/>

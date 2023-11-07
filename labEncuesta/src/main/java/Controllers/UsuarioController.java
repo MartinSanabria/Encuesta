@@ -12,6 +12,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -166,7 +167,16 @@ public class UsuarioController extends HttpServlet {
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/Cliente/perfil.jsp");
                 dispatcher.forward(request, response);
 
-            }else{
+            }else if("verGrafico".equals(action)){
+                         Encuesta encuesta = new Encuesta();
+                            encuestaDAO encuestaDao = new encuestaDAO();
+                            List<Encuesta> encuestas = encuestaDao.buscarTodasLasEncuestas();
+
+                        request.setAttribute("encuestas", encuestas);
+
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin/grafico.jsp");
+                        dispatcher.forward(request, response);
+                       
             }
     }
     
