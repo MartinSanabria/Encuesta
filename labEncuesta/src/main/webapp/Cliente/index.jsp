@@ -3,11 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <jsp:include page="../publicLayouts/header.jsp"/>
-
-<c:if test="${empty cliente}">
-    <%-- La sesión no está activa, redirige al inicio de sesión --%>
-     <c:redirect url="index.jsp" />
-</c:if>
 <div class="container mt-5">
      <c:choose>
          <c:when test="${sessionScope.encuestaRealizada == '1'}">
@@ -108,6 +103,12 @@
         </c:otherwise>
     </c:choose>
 </div>
+
+<script>
+    // Evitar que el usuario retroceda a la página de login
+    const targetUrl = "/labEncuesta/Cliente/index.jsp"; // Cambia esto según tu estructura de carpetas
+    history.replaceState(null, null, targetUrl);
+</script>
 
 
 

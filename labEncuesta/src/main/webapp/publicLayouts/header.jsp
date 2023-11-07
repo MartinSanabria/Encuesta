@@ -30,11 +30,15 @@
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/labEncuesta/index.jsp">Encuestas</a>
+                <li class="nav-item mb-2 mt-2">
+                    <form action="/labEncuesta/UsuarioController?action=verform" method="post">
+                        <input type="hidden" id="userId" name="userId" class="form-control" required value="${sessionScope.userId}">
+                        <button type="submit" class="nav-link" style="background: none; border: none; padding: 0; color: #fff; cursor: pointer;">Ver encuesta</button>
+                    </form>
                 </li>
-             
             </ul>
+
+
             <div class="d-flex me-5 pe-4">
                 <c:if test="${not empty sessionScope.userName}">
                     <!-- Botón Dropdown para el perfil del usuario -->

@@ -86,6 +86,9 @@ public class UsuarioController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
             HttpSession session = request.getSession();  // Obtiene la sesión, o crea una si no existe
+            // Después de autenticar al usuario con éxito
+            session.setAttribute("inicioSesionDesdeLogin", false);
+                
 
             String action = request.getParameter("action");
 

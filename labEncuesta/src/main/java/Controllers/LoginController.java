@@ -100,12 +100,14 @@ public class LoginController extends HttpServlet {
 
                         String successMessage = "Inicio de sesión satisfactorio.";
                         request.setAttribute("successMessage", successMessage);
+                        
                         // Utilizamos RequestDispatcher para redirigir al administrador
                             Encuesta encuesta = new Encuesta();
                             encuestaDAO encuestaDao = new encuestaDAO();
                             List<Encuesta> encuestas = encuestaDao.buscarTodasLasEncuestas();
 
                         request.setAttribute("encuestas", encuestas);
+                        session.setAttribute("inicioSesionDesdeLogin", true);
 
                         RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin/index.jsp");
                         dispatcher.forward(request, response);
@@ -137,6 +139,9 @@ public class LoginController extends HttpServlet {
                         }
                         String successMessage = "Inicio de sesión satisfactorio.";
                         request.setAttribute("successMessage", successMessage);
+                        // Después de autenticar al usuario con éxito
+                        session.setAttribute("inicioSesionDesdeLogin", true);
+
                         // Utilizamos RequestDispatcher para redirigir al cliente
                         RequestDispatcher dispatcher = request.getRequestDispatcher("/Cliente/index.jsp");
                         dispatcher.forward(request, response);

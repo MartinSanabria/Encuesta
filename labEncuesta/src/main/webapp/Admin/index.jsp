@@ -5,10 +5,6 @@
 <!DOCTYPE html>
 <jsp:include page="../AdminLayouts/header.jsp"/>
 
-<c:if test="${empty admin}">
-    <%-- La sesión no está activa, redirige al inicio de sesión --%>
-     <c:redirect url="index.jsp" />
-</c:if>
 <div class="container mt-3">
     Bienvenido a la pagina del administrador
     <h1>Encuesta</h1>
