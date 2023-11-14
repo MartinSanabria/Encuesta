@@ -95,30 +95,89 @@ public class encuestaDAO {
     List<Encuesta> encuestas = new ArrayList<>();
     String sql = "SELECT * FROM encuesta";
     
-    try {
-        PreparedStatement statement = conexion.prepareStatement(sql);
-        ResultSet rs = statement.executeQuery();
-        
-        while (rs.next()) {
-            Encuesta encuesta = new Encuesta();
-            encuesta.setUser_id(rs.getInt("user_id"));
-            encuesta.setNombre(rs.getString("nombre"));
-            encuesta.setSexo(rs.getString("sexo"));
-            encuesta.setDeporte_favorito(rs.getString("deporte_favorito"));
-            encuesta.setNivel_estudio(rs.getString("nivel_estudio"));
-            encuesta.setTemas_favoritos(rs.getString("temas_favoritos"));
-            encuesta.setFecha(rs.getString("fecha"));
-            encuesta.setHora(rs.getString("hora"));
-            // Configura otros atributos de la encuesta si es necesario
-            encuestas.add(encuesta);
+        try {
+            PreparedStatement statement = conexion.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                Encuesta encuesta = new Encuesta();
+                encuesta.setUser_id(rs.getInt("user_id"));
+                encuesta.setNombre(rs.getString("nombre"));
+                encuesta.setSexo(rs.getString("sexo"));
+                encuesta.setDeporte_favorito(rs.getString("deporte_favorito"));
+                encuesta.setNivel_estudio(rs.getString("nivel_estudio"));
+                encuesta.setTemas_favoritos(rs.getString("temas_favoritos"));
+                encuesta.setFecha(rs.getString("fecha"));
+                encuesta.setHora(rs.getString("hora"));
+                // Configura otros atributos de la encuesta si es necesario
+                encuestas.add(encuesta);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Manejo de la excepción, como lanzar una excepción personalizada o registrar el error
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
-        // Manejo de la excepción, como lanzar una excepción personalizada o registrar el error
-    }
     
-    return encuestas;
-}
+        return encuestas;
+    }
+    public List<Encuesta> buscarEncuestasPorFecha(String fecha) {
+        List<Encuesta> encuestas = new ArrayList<>();
+        String sql = "SELECT * FROM encuesta WHERE fecha = ?";
+
+        try {
+            PreparedStatement statement = conexion.prepareStatement(sql);
+            statement.setString(1, fecha); // Establece la fecha en el PreparedStatement
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                Encuesta encuesta = new Encuesta();
+                encuesta.setUser_id(rs.getInt("user_id"));
+                encuesta.setNombre(rs.getString("nombre"));
+                encuesta.setSexo(rs.getString("sexo"));
+                encuesta.setDeporte_favorito(rs.getString("deporte_favorito"));
+                encuesta.setNivel_estudio(rs.getString("nivel_estudio"));
+                encuesta.setTemas_favoritos(rs.getString("temas_favoritos"));
+                encuesta.setFecha(rs.getString("fecha"));
+                encuesta.setHora(rs.getString("hora"));
+                // Configura otros atributos de la encuesta si es necesario
+                encuestas.add(encuesta);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Manejo de la excepción, como lanzar una excepción personalizada o registrar el error
+        }
+
+        return encuestas;
+    }
+    public List<Encuesta> buscarEncuestasPorNombre(String nombre) {
+    List<Encuesta> encuestas = new ArrayList<>();
+    String sql = "SELECT * FROM encuesta WHERE nombre = ?";
+
+        try {
+            PreparedStatement statement = conexion.prepareStatement(sql);
+            statement.setString(1, nombre); // Establece el nombre en el PreparedStatement
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                Encuesta encuesta = new Encuesta();
+                encuesta.setUser_id(rs.getInt("user_id"));
+                encuesta.setNombre(rs.getString("nombre"));
+                encuesta.setSexo(rs.getString("sexo"));
+                encuesta.setDeporte_favorito(rs.getString("deporte_favorito"));
+                encuesta.setNivel_estudio(rs.getString("nivel_estudio"));
+                encuesta.setTemas_favoritos(rs.getString("temas_favoritos"));
+                encuesta.setFecha(rs.getString("fecha"));
+                encuesta.setHora(rs.getString("hora"));
+                // Configura otros atributos de la encuesta si es necesario
+                encuestas.add(encuesta);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Manejo de la excepción, como lanzar una excepción personalizada o registrar el error
+        }
+
+        return encuestas;
+    }
+
 
 
 

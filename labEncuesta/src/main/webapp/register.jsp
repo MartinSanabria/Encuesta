@@ -38,41 +38,43 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         .gradient-custom-2 {
-        /* fallback for old browsers */
-        background: #fccb90;
+            /* fallback for old browsers */
+            background: #a0d8d5;
 
-        /* Chrome 10-25, Safari 5.1-6 */
-        background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+            /* Chrome 10-25, Safari 5.1-6 */
+            background: -webkit-linear-gradient(to right, #36d1dc, #5d9cec, #7e5be8, #a72693);
 
-        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-        background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+            /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            background: linear-gradient(to right, #36d1dc, #5d9cec, #7e5be8, #a72693);
         }
 
         @media (min-width: 768px) {
-        .gradient-form {
-        height: 100vh !important;
+            .gradient-form {
+                height: 100vh !important;
+            }
         }
-        }
+
         @media (min-width: 769px) {
-        .gradient-custom-2 {
-        border-top-right-radius: .3rem;
-        border-bottom-right-radius: .3rem;
-        }
+            .gradient-custom-2 {
+                border-top-right-radius: .3rem;
+                border-bottom-right-radius: .3rem;
+            }
         }
     </style>
+
     <div class="container">
         <section class="h-100 gradient-form">
             <div class="container py-5 h-100">
               <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-xl-10">
-                  <div class="card rounded-3 text-black">
+                  <div class="card rounded-3 text-black shadow">
                     <div class="row g-0">
                       <div class="col-lg-6">
                         <div class="card-body p-md-5 mx-md-4">
 
                           <div class="text-center">
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
-                              style="width: 185px;" alt="logo">
+                        <img src="https://i.ibb.co/wRy137Z/encuesta.png" alt="encuesta"  style="width: 125px;" alt="logo" border="0">                             
+
                             <h4 class="mt-1 mb-5 pb-1">Bienvenido</h4>
                           </div>
 
@@ -97,12 +99,15 @@
 
                                 </div>
 
-                                <div class="mb-3 row mt-3">
-                                    <div class="offset-sm-2 col-sm-8">
-                                        <button type="submit" class="btn btn-primary gradient-custom-2 ">Registrarse</button>
-                                        <a href="/labEncuesta/" class="btn btn-outline-danger"> Regresar</a>
-                                    </div>
+                           <div class="mb-3 row mt-3">
+                                <div class="ml-3 col-sm-4"> <!-- Nueva columna para el segundo botón -->
+                                    <a href="/labEncuesta/" class="btn btn-outline-primary">Regresar</a>
                                 </div>
+                                <div class="offset-sm-2 col-sm-4"> <!-- Cambié col-sm-8 a col-sm-4 -->
+                                    <button type="submit" class="btn btn-primary gradient-custom-2">Registrarse</button>
+                                </div>
+                            </div>
+
                                 
                             </div>
 
@@ -114,11 +119,10 @@
                       </div>
                       <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
                         <div class="text-white px-3 py-4 p-md-5 mx-md-4">
-                          <h4 class="mb-4">Disfruta tu estancia.</h4>
+                          <h4 class="mb-4">Disfruta tu estancia EncuestanOS.</h4>
                           <p class="small mb-0">
-                              Buscamos garantizar la mayor calidad y demanda de productos
-                              ,para que estos esten a tu alcance de la forma mas facil posible,
-                              adquiere nuestros productos y disfruta de la calidad y servicio.
+                             Somos una empresa comprometida con tus necesdidades apoyanos dandonos ideas
+                             que se adapten a tus preferencias EncuestanOS.
                           </p>
                         </div>
                       </div>

@@ -155,8 +155,17 @@ public class UsuarioController extends HttpServlet {
                 perfil.setPassword(decryptedPassword);
                 System.out.println("Contra: " + decryptedPassword);
                 request.setAttribute("perfil", perfil);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/Cliente/perfil.jsp");
-                dispatcher.forward(request, response);
+                session = request.getSession();
+                Usuario loggedInUser = (Usuario) session.getAttribute("admin");
+                  if (loggedInUser != null) {
+                            // Si el usuario logueado es un administrador (tipo 0)
+                            RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin/perfil.jsp");
+                            dispatcher.forward(request, response);
+                  } else {
+                            // Si el usuario logueado es un cliente (tipo 1)
+                            RequestDispatcher dispatcher = request.getRequestDispatcher("/Cliente/perfil.jsp");
+                            dispatcher.forward(request, response);
+                   }
             
             }else if("actualizarPerfil".equals(action)) {
                 int userId = Integer.parseInt(request.getParameter("userId"));
@@ -167,8 +176,18 @@ public class UsuarioController extends HttpServlet {
                 usuarioDAO userDao = new usuarioDAO();
                 Usuario perfil = userDao.actualizarUser(userId,email,nombre,decryptedPassword);
                 request.setAttribute("perfil", perfil);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/Cliente/perfil.jsp");
-                dispatcher.forward(request, response);
+                session.setAttribute("userName", nombre);
+                Usuario loggedInUser = (Usuario) session.getAttribute("admin");
+                  if (loggedInUser != null) {
+                            // Si el usuario logueado es un administrador (tipo 0)
+                            RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin/perfil.jsp");
+                            dispatcher.forward(request, response);
+                  } else {
+                            // Si el usuario logueado es un cliente (tipo 1)
+                            RequestDispatcher dispatcher = request.getRequestDispatcher("/Cliente/perfil.jsp");
+                            dispatcher.forward(request, response);
+                   }
+
 
             }else if("verGrafico".equals(action)){
                          Encuesta encuesta = new Encuesta();
@@ -180,6 +199,49 @@ public class UsuarioController extends HttpServlet {
                         RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin/grafico.jsp");
                         dispatcher.forward(request, response);
                        
+            }else if("verEncuestas".equals(action)){
+                         Encuesta encuesta = new Encuesta();
+                            encuestaDAO encuestaDao = new encuestaDAO();
+                            List<Encuesta> encuestas = encuestaDao.buscarTodasLasEncuestas();
+
+                        request.setAttribute("encuestas", encuestas);
+
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin/index.jsp");
+                        dispatcher.forward(request, response);
+                       
+            }else if("verEncuestasF".equals(action)){
+                String fechaParam = request.getParameter("fecha"); // Obtener el parámetro de fecha desde la solicitud
+
+                if (fechaParam != null && !fechaParam.isEmpty()) {
+                    Encuesta encuesta = new Encuesta();
+                    encuestaDAO encuestaDao = new encuestaDAO();
+                    List<Encuesta> encuestas = encuestaDao.buscarEncuestasPorFecha(fechaParam);
+
+                    request.setAttribute("encuestas", encuestas);
+                } else {
+                    // Manejar el caso en el que no se proporciona la fecha
+                    // Puedes mostrar un mensaje de error o realizar alguna acción predeterminada
+                    // También puedes redirigir a una página de error si es necesario
+                    request.setAttribute("errorMessage", "Debe proporcionar una fecha para realizar la búsqueda.");
+                }
+
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin/index.jsp");
+                dispatcher.forward(request, response);
+            }else if("verEncuestasN".equals(action)){
+               String nombreParam = request.getParameter("nombre");
+
+                if (nombreParam != null && !nombreParam.isEmpty()) {
+                    Encuesta encuesta = new Encuesta();
+                    encuestaDAO encuestaDao = new encuestaDAO();
+                    List<Encuesta> encuestas = encuestaDao.buscarEncuestasPorNombre(nombreParam);
+
+                    request.setAttribute("encuestas", encuestas);
+                } else {
+                    request.setAttribute("errorMessage", "Debe proporcionar un nombre para realizar la búsqueda.");
+                }
+
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin/index.jsp");
+                dispatcher.forward(request, response);
             }
     }
     

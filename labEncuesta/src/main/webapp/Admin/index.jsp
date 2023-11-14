@@ -8,11 +8,39 @@
 <div class="container mt-3">
     Bienvenido a la pagina del administrador
     <h1>Encuesta</h1>
+  <div class="container">
+    <form action="/labEncuesta/UsuarioController?action=verEncuestasF" method="post" class="mt-2">
+        <div class="form-group">
+            <label for="fecha">Seleccionar fecha:</label>
+            <input type="date" class="form-control" id="fecha" name="fecha">
+        </div>
+        <button type="submit" class="btn btn-primary mt-2">Buscar por fecha</button>
+    </form>
+
+    <form action="/labEncuesta/UsuarioController?action=verEncuestasN" method="post" id="formNombre" class="mt-4 mb-2">
+        <div class="form-group">
+            <label for="nombre">Buscar por nombre:</label>
+            <input type="text" class="form-control" id="nombre" name="nombre">
+        </div>
+        <button type="submit" class="btn btn-primary mt-2">Buscar por nombre</button>
+    </form>
+
+    <form action="/labEncuesta/UsuarioController?action=verEncuestas" method="post">
+        <button type="submit" class="btn btn-primary mt-2">Buscar todos</button>
+    </form>
+</div>
+
+  
+
+  
     <c:choose>
         <c:when test="${empty encuestas}">
             <p>No hay encuestas realizadas.</p>
         </c:when>
         <c:otherwise>
+              <!-- Formulario con campo de fecha -->
+               
+
             <table id="miTabla" class="table">
                 <thead>
                     <tr>
@@ -38,7 +66,6 @@
                             <td>${encuesta.hora}</td>
 
                             
-                            <!-- Agrega más columnas según los atributos de la encuesta -->
                         </tr>
                     </c:forEach>
                 </tbody>

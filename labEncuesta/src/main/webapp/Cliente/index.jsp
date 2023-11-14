@@ -15,7 +15,11 @@
             </form>
         </c:when>
         <c:otherwise>
-            <form action="/labEncuesta/UsuarioController?action=enviarform" method="post">
+         <div class="container mt-5">
+            <div class="card">
+            <div class="card-body border shadow">
+            <h2 class="card-title">Encuesta</h2>
+            <form  action="/labEncuesta/UsuarioController?action=enviarform" method="post" onsubmit="return validateForm()">
                 <div class="form-group">
                     <label for="userName">Nombre de usuario:</label>
                     <input type="text" id="userName" name="userName" class="form-control" required value="${sessionScope.userName}">
@@ -24,10 +28,11 @@
 
                 <div class="form-group">
                     <label>Genero</label>
-                    <div class="form-check">
+                    <div class="form-check" required>
                         <input type="radio" id="male" name="gender" value="Masculino" class="form-check-input">
                         <label for="male" class="form-check-label">Masculino</label>
                     </div>
+                    
                     <div class="form-check">
                         <input type="radio" id="female" name="gender" value="Femenino" class="form-check-input">
                         <label for="female" class="form-check-label">Femenino</label>
@@ -100,15 +105,14 @@
 
                 <button type="submit" class="btn btn-primary mt-5">Enviar encuesta</button>
             </form>
+            </div>
+            </div>
+        </div>
         </c:otherwise>
     </c:choose>
 </div>
 
-<script>
-    // Evitar que el usuario retroceda a la página de login
-    const targetUrl = "/labEncuesta/Cliente/index.jsp"; // Cambia esto según tu estructura de carpetas
-    history.replaceState(null, null, targetUrl);
-</script>
+
 
 
 
@@ -154,6 +158,115 @@
             })
     </script>
 </c:if>
+
+<script>
+    function validateForm() {
+        // Validate the username
+        var userName = document.getElementById('userName').value;
+        if (userName.trim() === '') {
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                icon: 'error',
+                title: 'Error',
+                text: 'Por favor ingrese su nombre.'
+            });
+            return false;
+        }
+
+        // Validate gender selection
+        var genderSelected = false;
+        var genderRadios = document.getElementsByName('gender');
+        for (var i = 0; i < genderRadios.length; i++) {
+            if (genderRadios[i].checked) {
+                genderSelected = true;
+                break;
+            }
+        }
+        if (!genderSelected) {
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                icon: 'error',
+                title: 'Error',
+                text: 'Seleccione un genero.'
+            });
+            return false;
+        }
+
+        // Validate sport selection
+        var sportSelected = false;
+        var sportRadios = document.getElementsByName('sport');
+        for (var i = 0; i < sportRadios.length; i++) {
+            if (sportRadios[i].checked) {
+                sportSelected = true;
+                break;
+            }
+        }
+        if (!sportSelected) {
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                icon: 'error',
+                title: 'Error',
+                text: 'Seleccione un deporte favorito.'
+            });
+            return false;
+        }
+
+        // Validate education level selection
+        var educationLevel = document.getElementById('educationLevel').value;
+        if (educationLevel === '-seleccione un nivel de estudio-') {
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                icon: 'error',
+                title: 'Error',
+                text: 'Seleccione su nivel de estudio.'
+            });
+            return false;
+        }
+
+        // Validate favorite topic selection
+        var topicSelected = false;
+        var topicRadios = document.getElementsByName('favoriteTopic');
+        for (var i = 0; i < topicRadios.length; i++) {
+            if (topicRadios[i].checked) {
+                topicSelected = true;
+                break;
+            }
+        }
+        if (!topicSelected) {
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                icon: 'error',
+                title: 'Error',
+                text: 'Seleccione su tema favorito.'
+            });
+            return false;
+        }
+
+        // If all validations pass, the form is submitted
+        return true;
+    }
+</script>
+
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
