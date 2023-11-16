@@ -71,11 +71,12 @@
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-               
-                            <form  action="/labEncuesta/UsuarioController?action=verEncuestas" method="post">
-
-                                <button class="nav-item bg-black text-white" aria-current="page" type="submit">Ver encuestas</button>
-                            </form>              
+                <li>
+                    <form  action="/labEncuesta/UsuarioController?action=verEncuestas" method="post">
+                        <button aria-current="page" type="submit" class="nav-link" style="background: none; border: none; padding: 0; color: #fff; cursor: pointer;">Ver encuestas</button>
+                    </form>          
+                </li>
+                                
                 
                        
              
@@ -96,7 +97,7 @@
                             </form>
                             <form  action="/labEncuesta/UsuarioController?action=verEncuestas" method="post">
 
-                                <button class="dropdown-item" type="submit">Ver encuestas</button>
+                                <button class="dropdown-item" type="submit" >Ver encuestas</button>
                             </form>
                                 <!-- Campo oculto para enviar sessionScope.userId -->
                            <form  action="/labEncuesta/UsuarioController?action=verGrafico" method="post">

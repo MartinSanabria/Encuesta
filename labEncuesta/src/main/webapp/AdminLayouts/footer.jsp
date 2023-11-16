@@ -7,10 +7,15 @@
   </script>
   
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script>
-      
-      $(document).ready(function() {
+    <script>
+        $(document).ready(function() {
             $('#miTabla').DataTable({
+                "paging": true,
+                "ordering": true,
+                "searching": true,
+                "info": true,
+                "lengthMenu": [5, 10, 25, 50, 100],
+                "pageLength": 5,
                 "language": {
                     "sProcessing": "Procesando...",
                     "sLengthMenu": "Mostrar _MENU_ registros por página",
@@ -30,12 +35,10 @@
                         "sNext": "Siguiente",
                         "sPrevious": "Anterior"
                     }
-                },
-                "lengthMenu": [5, 10, 25], // Mostrar opciones de 5, 10 y 25 registros por página
-                "pageLength": 5 // Establecer 5 como valor por defecto
+                }
             });
         });
-  </script>
+    </script>
 </body>
 
 </html>

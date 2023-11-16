@@ -149,10 +149,15 @@ public class LoginController extends HttpServlet {
                     } else {
                         String errorMessage = "Credenciales incorrectas.";
                         request.setAttribute("errorMessage", errorMessage);
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+                        dispatcher.forward(request, response);
                     }
                 } else {
                     String errorMessage = "Credenciales incorrectas.";
                     request.setAttribute("errorMessage", errorMessage);
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+                    dispatcher.forward(request, response);
+                    
                 }
             } else if(request.getParameter("action").equals("create")){
                 
