@@ -101,6 +101,7 @@ public class encuestaDAO {
 
             while (rs.next()) {
                 Encuesta encuesta = new Encuesta();
+                encuesta.setEncuesta_id(rs.getInt("encuesta_id"));
                 encuesta.setUser_id(rs.getInt("user_id"));
                 encuesta.setNombre(rs.getString("nombre"));
                 encuesta.setSexo(rs.getString("sexo"));
@@ -130,6 +131,7 @@ public class encuestaDAO {
 
             while (rs.next()) {
                 Encuesta encuesta = new Encuesta();
+                encuesta.setEncuesta_id(rs.getInt("encuesta_id"));
                 encuesta.setUser_id(rs.getInt("user_id"));
                 encuesta.setNombre(rs.getString("nombre"));
                 encuesta.setSexo(rs.getString("sexo"));
@@ -159,6 +161,7 @@ public class encuestaDAO {
 
             while (rs.next()) {
                 Encuesta encuesta = new Encuesta();
+                encuesta.setEncuesta_id(rs.getInt("encuesta_id"));
                 encuesta.setUser_id(rs.getInt("user_id"));
                 encuesta.setNombre(rs.getString("nombre"));
                 encuesta.setSexo(rs.getString("sexo"));
@@ -176,6 +179,20 @@ public class encuestaDAO {
         }
 
         return encuestas;
+    }
+    public boolean borrarEncuestaPorId(int idEncuesta) {
+        String sql = "DELETE FROM encuesta WHERE encuesta_id = ?";
+        try {
+            try (PreparedStatement statement = conexion.prepareStatement(sql)) {
+                statement.setInt(1, idEncuesta);
+                int filasAfectadas = statement.executeUpdate();
+                return filasAfectadas > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Manejo de la excepción, como lanzar una excepción personalizada o registrar el error
+        }
+        return false;
     }
 
 

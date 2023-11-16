@@ -242,6 +242,31 @@ public class UsuarioController extends HttpServlet {
 
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin/index.jsp");
                 dispatcher.forward(request, response);
+            }else if("Borrar".equals(action)){
+                String idEncuestaStr = request.getParameter("id_encuesta");
+
+                // Obtener el id_encuesta de alguna manera, puede ser a través de parámetros de solicitud, sesiones, etc.
+                int idEncuesta = Integer.parseInt(idEncuestaStr);
+
+                // Crear una instancia de EncuestaDAO
+                encuestaDAO encuestaDAO = new encuestaDAO();
+
+                // Intentar borrar la encuesta
+                boolean encuestaBorrada = encuestaDAO.borrarEncuestaPorId(idEncuesta);
+
+                if (encuestaBorrada) {
+                    // La encuesta fue borrada con éxito
+                    encuestaDAO encuestaDao = new encuestaDAO();
+                    List<Encuesta> encuestas = encuestaDao.buscarTodasLasEncuestas();
+
+                    request.setAttribute("encuestas", encuestas);
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin/index.jsp");
+                    dispatcher.forward(request, response);
+                } else {
+                    // Ocurrió un problema al borrar la encuesta
+                    // Puedes manejar esto de acuerdo a tus necesidades, por ejemplo, redirigiendo a una página de error
+                    response.sendRedirect("/ruta/a/tu/pagina/de/error.jsp");
+                }
             }
     }
     

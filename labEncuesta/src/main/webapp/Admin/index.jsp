@@ -9,42 +9,48 @@
     Bienvenido a la pagina del administrador
     <h1>Encuesta</h1>
     <div class="container text-center" style="justify-content: center; align-content: center; align-self: center; margin-left: 10%; margin-bottom: 50px;">
-    <form action="/labEncuesta/UsuarioController?action=verEncuestasF" method="post" class="mt-2">
-        <div class="row mt-3">
-            <div class="col-md-4 mb-2">
-                <div class="form-group">
-                    <label for="fecha">Seleccionar fecha:</label>
-                    <input type="date" class="form-control" id="fecha" name="fecha">
-                    
-                    <div class="d-grid gap-1 col-6 mx-auto mt-2">
-                        <button type="submit" class="btn btn-primary">Buscar por fecha</button>
-                    </div>
+        <div class="container mt-3">
+            <div class="row mt-3">
+                <div class="col-md-4 mb-2 mt-3">
+                    <form action="/labEncuesta/UsuarioController?action=verEncuestasF" method="post" class="mt-2">
+
+                            <div class="form-group">
+                                <label for="fecha">Seleccionar fecha:</label>
+                                <input type="date" class="form-control" id="fecha" name="fecha">
+
+                                <div class="d-grid gap-1 col-6 mx-auto mt-2">
+                                    <button type="submit" class="btn btn-primary">Buscar por fecha</button>
+                                </div>
+                            </div>
+
+
+                    </form>
                 </div>
                 
+                <div class="col-md-4 mb-2">
+                    <form action="/labEncuesta/UsuarioController?action=verEncuestasN" method="post" id="formNombre" class="mt-4 mb-2">
+                       <div class="form-group">
+                           <label for="nombre">Buscar por nombre:</label>
+                           <input type="text" class="form-control" id="nombre" name="nombre">
+                       </div>
+                         <div class="d-grid gap-1 col-6 mx-auto mt-2">
+                           <button type="submit" class="btn btn-primary mt-2">Buscar por nombre</button>
+                        </div>
+                   </form>
+               </div>
+
+                <div class="col-md-4 mt-5">
+                        <form action="/labEncuesta/UsuarioController?action=verEncuestas" method="post">
+                            <button type="submit" class="btn btn-primary mt-2">Buscar todos</button>
+                        </form>
+                </div>
+                
+                
+                
             </div>
-            
-            <div class="col-md-4 mb-2">
-                 <form action="/labEncuesta/UsuarioController?action=verEncuestasN" method="post" id="formNombre" class="mt-4 mb-2">
-                    <div class="form-group">
-                        <label for="nombre">Buscar por nombre:</label>
-                        <input type="text" class="form-control" id="nombre" name="nombre">
-                    </div>
-                      <div class="d-grid gap-1 col-6 mx-auto mt-2">
-                        <button type="submit" class="btn btn-primary mt-2">Buscar por nombre</button>
-                     </div>
-                </form>
-            </div>
-            
-            <div class="col-md-4 mt-3">
-                    <form action="/labEncuesta/UsuarioController?action=verEncuestas" method="post">
-                        <button type="submit" class="btn btn-primary mt-2">Buscar todos</button>
-                    </form>
-            </div>
-            
         </div>
-       
-    </form>
-</div>
+    </div>
+
 
 
   
@@ -67,6 +73,8 @@
                         <th>Temas favoritos</th>
                         <th>Fecha</th>
                         <th>Hora</th>
+                        <th>Eliminar</th>
+
                         <!-- Agrega más columnas según los atributos de la encuesta -->
                     </tr>
                 </thead>
@@ -80,6 +88,14 @@
                             <td>${encuesta.temas_favoritos}</td>
                             <td>${encuesta.fecha}</td>
                             <td>${encuesta.hora}</td>
+                               <td>
+                                <form action="/labEncuesta/UsuarioController?action=Borrar" method="post">
+                                   <input type="hidden" name="id_encuesta" value="${encuesta.encuesta_id}">
+                                     <button type="submit" class="btn btn-danger mt-2">Borrar</button>
+
+                                </form>
+                              
+                            </td>
                         </tr>
                     </c:forEach>
                 </tbody>
